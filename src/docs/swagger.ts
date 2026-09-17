@@ -36,8 +36,8 @@ export const swaggerSpec: SwaggerDocument = {
   },
   servers: [
     {
-      url: "/api",
-      description: "",
+      url: "/",
+      description: "Local development server",
     },
   ],
   paths: {
@@ -339,7 +339,8 @@ export const swaggerSpec: SwaggerDocument = {
         ],
         responses: {
           "200": {
-            description: "Usage data aggregated successfully. Empty ranges return zeros and an empty breakdown.",
+            description:
+              "Usage data aggregated successfully. Empty ranges return zeros and an empty breakdown.",
             content: {
               "application/json": {
                 schema: {
@@ -569,14 +570,7 @@ export const swaggerSpec: SwaggerDocument = {
       },
       UsageResponse: {
         type: "object",
-        required: [
-          "api_key",
-          "from",
-          "to",
-          "group_by",
-          "totals",
-          "breakdown",
-        ],
+        required: ["api_key", "from", "to", "group_by", "totals", "breakdown"],
         properties: {
           api_key: {
             type: "string",
@@ -601,7 +595,8 @@ export const swaggerSpec: SwaggerDocument = {
           },
           breakdown: {
             type: "array",
-            description: "Grouped usage rows. Empty array when no events match.",
+            description:
+              "Grouped usage rows. Empty array when no events match.",
             items: {
               $ref: "#/components/schemas/UsageGroupItem",
             },

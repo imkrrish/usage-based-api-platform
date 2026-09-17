@@ -11,7 +11,7 @@ export function createApp(): express.Application {
   app.use(express.json());
 
   // Health check endpoint
-  app.get("/api/health", (_req, res) => {
+  app.get("/health", (_req, res) => {
     res.json({
       status: "ok",
       timestamp: new Date().toISOString(),
@@ -22,7 +22,7 @@ export function createApp(): express.Application {
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // API routes
-  app.use("/api", router);
+  app.use("/", router);
 
   // Error handling middleware (must be last)
   app.use(errorHandler);
