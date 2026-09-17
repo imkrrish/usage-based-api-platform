@@ -62,21 +62,21 @@ Completion requests require Bearer authentication. Successful requests return a 
 
 All API endpoints are mounted under `/api`.
 
-| Method | Path                                 | Description                   |
-| ------ | ------------------------------------ | ----------------------------- |
-| GET    | `/api/health`                        | Health check                  |
-| POST   | `/api/deployments`                   | Create a deployment           |
-| GET    | `/api/deployments/:id`               | Fetch deployment status       |
-| DELETE | `/api/deployments/:id`               | Mark deployment as terminated |
-| POST   | `/api/v1/:deployment_id/completions` | Create a mocked completion    |
-| GET    | `/api/usage`                         | Query usage and billing data  |
+| Method | Path                             | Description                   |
+| ------ | -------------------------------- | ----------------------------- |
+| GET    | `/health`                        | Health check                  |
+| POST   | `/deployments`                   | Create a deployment           |
+| GET    | `/deployments/:id`               | Fetch deployment status       |
+| DELETE | `/deployments/:id`               | Mark deployment as terminated |
+| POST   | `/v1/:deployment_id/completions` | Create a mocked completion    |
+| GET    | `/usage`                         | Query usage and billing data  |
 
 ## Example Requests/Responses
 
 Create a deployment:
 
 ```bash
-curl -X POST http://localhost:4000/api/deployments \
+curl -X POST http://localhost:4000/deployments \
   -H "Content-Type: application/json" \
   -d '{"model":"model-a"}'
 ```
@@ -91,7 +91,7 @@ curl -X POST http://localhost:4000/api/deployments \
 Fetch a ready deployment:
 
 ```bash
-curl http://localhost:4000/api/deployments/dep_lx123abc_0123456789abcdef
+curl http://localhost:4000/deployments/dep_lx123abc_0123456789abcdef
 ```
 
 ```json
@@ -109,7 +109,7 @@ curl http://localhost:4000/api/deployments/dep_lx123abc_0123456789abcdef
 Create a completion:
 
 ```bash
-curl -X POST http://localhost:4000/api/v1/dep_lx123abc_0123456789abcdef/completions \
+curl -X POST http://localhost:4000/v1/dep_lx123abc_0123456789abcdef/completions \
   -H "Authorization: Bearer generated-api-key" \
   -H "Content-Type: application/json" \
   -d '{"prompt":"Write a short product description."}'
@@ -126,7 +126,7 @@ curl -X POST http://localhost:4000/api/v1/dep_lx123abc_0123456789abcdef/completi
 Query usage:
 
 ```bash
-curl "http://localhost:4000/api/usage?api_key=generated-api-key&from=2026-09-01T00:00:00.000Z&to=2026-09-30T23:59:59.999Z&group_by=day"
+curl "http://localhost:4000/usage?api_key=generated-api-key&from=2026-09-01T00:00:00.000Z&to=2026-09-30T23:59:59.999Z&group_by=day"
 ```
 
 ```json
