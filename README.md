@@ -60,7 +60,6 @@ Completion requests require Bearer authentication. Successful requests return a 
 
 ## API Endpoints
 
-All API endpoints are mounted under `/api`.
 
 | Method | Path                             | Description                   |
 | ------ | -------------------------------- | ----------------------------- |
