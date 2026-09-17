@@ -1,8 +1,10 @@
+import type { ModelType } from './deployment.js';
+
 // Usage event document interface
 export interface IUsageEvent {
   api_key: string;
   deployment_id: string;
-  model: string;
+  model: ModelType;
   input_tokens: number;
   output_tokens: number;
   timestamp: Date;

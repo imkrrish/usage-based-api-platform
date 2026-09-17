@@ -1,8 +1,9 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import type { HydratedDocument } from 'mongoose';
 import type { IDeployment } from '../../types/deployment.js';
 
 // Document interface extending Mongoose Document
-export type DeploymentDocument = IDeployment & Document;
+export type DeploymentDocument = HydratedDocument<IDeployment>;
 
 // Schema definition
 const deploymentSchema = new Schema<IDeployment>(

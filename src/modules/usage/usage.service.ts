@@ -1,4 +1,5 @@
 import type { IUsageEvent, UsageGroupItem, UsageResponse } from '../../types/usage.js';
+import type { ModelType } from '../../types/deployment.js';
 import {
   calculateInputCost,
   calculateOutputCost,
@@ -11,7 +12,7 @@ import type { PipelineStage } from 'mongoose';
 export interface CreateUsageEventInput {
   api_key: string;
   deployment_id: string;
-  model: string;
+  model: ModelType;
   input_tokens: number;
   output_tokens: number;
 }

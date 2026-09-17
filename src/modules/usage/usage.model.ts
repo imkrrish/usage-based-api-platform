@@ -17,6 +17,7 @@ const usageEventSchema = new Schema<IUsageEvent>(
     model: {
       type: String,
       required: true,
+      enum: ['model-a', 'model-b'] as const,
     },
     input_tokens: {
       type: Number,

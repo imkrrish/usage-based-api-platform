@@ -54,7 +54,9 @@ export async function requireAuth(
   }
 
   // Attach deployment info to request
-  (req as AuthenticatedRequest).deployment = {
+  const authenticatedReq = req as AuthenticatedRequest;
+  authenticatedReq.apiKey = token;
+  authenticatedReq.deployment = {
     deployment_id: result.deployment.deployment_id,
     status: result.deployment.status,
     model: result.deployment.model,

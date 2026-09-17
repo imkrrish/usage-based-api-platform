@@ -7,11 +7,11 @@ import { rateLimiter } from '../../middleware/rate-limit.middleware.js';
 const router: Router = Router();
 
 // POST /v1/:deployment_id/completions - Create a completion
-// Rate limiter runs before auth to reject early
+// Authenticate first so invalid API keys consistently return 401.
 router.post(
   '/:deployment_id/completions',
-  rateLimiter as RequestHandler,
   requireAuth as RequestHandler,
+  rateLimiter as RequestHandler,
   handleCompletion as RequestHandler
 );
 

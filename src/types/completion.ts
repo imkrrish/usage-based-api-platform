@@ -12,5 +12,6 @@ export interface CreateCompletionResponse {
 
 // Route params for completion operations
 export interface CompletionParams {
+  [key: string]: string;
   deployment_id: string;
 }

@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { AuthenticatedRequest } from '../../types/auth.js';
+import { isAuthenticatedRequest } from '../../types/auth.js';
 import type { CreateCompletionRequest, CompletionParams } from '../../types/completion.js';
+import type { CreateCompletionResponse } from '../../types/completion.js';
 import { createCompletion } from './completion.service.js';
 import { createApiError } from '../../middleware/error.middleware.js';
 import { createUsageEvent } from '../usage/usage.service.js';
@@ -10,22 +11,17 @@ import { createUsageEvent } from '../usage/usage.service.js';
  * Creates a completion for the specified deployment
  */
 export async function handleCompletion(
-  req: Request,
-  res: Response,
+  req: Request<CompletionParams, CreateCompletionResponse, CreateCompletionRequest>,
+  res: Response<CreateCompletionResponse>,
   _next: NextFunction
 ): Promise<void> {
-  // Cast to AuthenticatedRequest after middleware has attached deployment
-  const authenticatedReq = req as AuthenticatedRequest;
-  const params = req.params as unknown as CompletionParams;
-  const body = req.body as CreateCompletionRequest;
+  if (!isAuthenticatedRequest(req)) {
+    throw createApiError(500, 'Authenticated request context is missing', 'INTERNAL_ERROR');
+  }
 
-  const { deployment_id } = params;
-  const { prompt } = body;
-  const { deployment } = authenticatedReq;
-
-  // Get API key from Authorization header for usage tracking
-  const authHeader = req.headers.authorization;
-  const apiKey = authHeader?.split(' ')[1] ?? '';
+  const { deployment_id } = req.params;
+  const { prompt } = req.body;
+  const { apiKey, deployment } = req;
 
   // Validate prompt
   if (typeof prompt !== 'string') {
